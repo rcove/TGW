@@ -15,3 +15,18 @@ resource "aws_route53_record" "www" {
   }
 }
 
+data "aws_route53_zone" "selectedapp" {
+  name         = "${var.r53zone}"
+}
+
+resource "aws_route53_record" "app" {
+  zone_id = "${data.aws_route53_zone.selectedapp.zone_id}"
+  name    = "${var.externaldnshost}.${var.r53zone}"
+  type    = "A"
+  alias {
+    name                   = "${aws_lb.external_alb.dns_name}"
+    zone_id                = "${aws_lb.external_alb.zone_id}"
+    evaluate_target_health = true
+  }
+}
+

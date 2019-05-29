@@ -23,7 +23,7 @@ resource "aws_route_table" "Management_route_table" {
     cidr_block         = "${var.inbound_cidr_vpc}"
     transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
   }
-
+ 
   tags {
     Name = "${var.project_name}-Management-External-Route"
   }
@@ -120,6 +120,31 @@ resource "aws_route_table_association" "spoke-1_route_table_association" {
   route_table_id = "${aws_route_table.spoke_1_route_table.id}"
 }
 
+
+######################################
+########### Spoke-1a VPC  #############
+######################################
+
+# Create a route table (default to TGW)
+resource "aws_route_table" "spoke_1a_route_table" {
+  vpc_id     = "${aws_vpc.spoke_1a_vpc.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  }
+
+  tags {
+    Name = "${var.project_name}-Spoke-1a-Route"
+  }
+}
+
+resource "aws_route_table_association" "spoke-1a_route_table_association" {
+  count          = "${length(data.aws_availability_zones.azs.names)}"
+  subnet_id      = "${element(aws_subnet.spoke_1a_external_subnet.*.id, count.index)}"
+  route_table_id = "${aws_route_table.spoke_1a_route_table.id}"
+}
+
 ######################################
 ########### Spoke-2 VPC  #############
 ######################################
@@ -190,6 +215,12 @@ resource "aws_ec2_transit_gateway_route_table_association" "spoke_1_transit_gate
   transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.spoke_inbound_transit_gateway_route_table.id}"
 } 
 
+# Create route association - Associate Spoke-1a to this Route Table
+resource "aws_ec2_transit_gateway_route_table_association" "spoke_1a_transit_gateway_route_table_association" {
+  transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.spoke_1a_transit_gateway_vpc_attachment.id}"
+  transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.spoke_inbound_transit_gateway_route_table.id}"
+} 
+
 # Create route propagation - This is for replies to internet-to-spoke traffic
 resource "aws_ec2_transit_gateway_route_table_propagation" "checkpoint_inbound_transit_gateway_route_table_propagation" {
   transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.inbound_transit_gateway_vpc_attachment.id}"
@@ -221,6 +252,12 @@ resource "aws_ec2_transit_gateway_route_table_association" "checkpoint_outbound_
 # Create route propagation - Add routes to the spoke VPCs
 resource "aws_ec2_transit_gateway_route_table_propagation" "spoke_1_outbound_transit_gateway_route_table_propagation" {
   transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.spoke_1_transit_gateway_vpc_attachment.id}"
+  transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_outbound_transit_gateway_route_table.id}"
+}
+
+# Create route propagation - Add routes to the spoke VPCs
+resource "aws_ec2_transit_gateway_route_table_propagation" "spoke_1a_outbound_transit_gateway_route_table_propagation" {
+  transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.spoke_1a_transit_gateway_vpc_attachment.id}"
   transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_outbound_transit_gateway_route_table.id}"
 }
 
@@ -259,6 +296,12 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "spoke_1_inbound_tran
   transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_inbound_transit_gateway_route_table.id}"
 }
 
+# Create route propagation - Add routes to the spoke VPCs
+resource "aws_ec2_transit_gateway_route_table_propagation" "spoke_1a_inbound_transit_gateway_route_table_propagation" {
+  transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.spoke_1a_transit_gateway_vpc_attachment.id}"
+  transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_inbound_transit_gateway_route_table.id}"
+}
+
 ### Control Plane - Add a route to the Management VPC ###
 resource "aws_ec2_transit_gateway_route_table_propagation" "inbound_management_transit_gateway_route_table_propagation" {
   transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.management_transit_gateway_vpc_attachment.id}"
@@ -282,7 +325,7 @@ resource "aws_ec2_transit_gateway_route_table_association" "checkpoint_managemen
   transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_management_transit_gateway_route_table.id}"
 } 
 
-# Create route propagation - Add a route to the Inbound and Outbound Secuiryt VPCs
+# Create route propagation - Add a route to the Inbound and Outbound Security VPCs
 resource "aws_ec2_transit_gateway_route_table_propagation" "management_outbound_transit_gateway_route_table_propagation" {
   transit_gateway_attachment_id  = "${aws_ec2_transit_gateway_vpc_attachment.outbound_transit_gateway_vpc_attachment.id}"
   transit_gateway_route_table_id = "${aws_ec2_transit_gateway_route_table.checkpoint_management_transit_gateway_route_table.id}"

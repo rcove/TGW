@@ -78,3 +78,20 @@ resource "aws_subnet" "spoke_2_external_subnet" {
     Name = "${var.project_name}-Spoke-2-External"
   }
 }
+
+
+#####################################
+########### Spoke-1a VPC  ############
+#####################################
+
+# Create a subnet to launch our instances into
+resource "aws_subnet" "spoke_1a_external_subnet" {
+  count             = "${length(data.aws_availability_zones.azs.names)}"
+  availability_zone = "${element(data.aws_availability_zones.azs.names, count.index)}"
+  vpc_id            = "${aws_vpc.spoke_1a_vpc.id}"
+  cidr_block        = "${cidrsubnet(var.spoke_1a_cidr_vpc, 8, count.index+100 )}"
+  
+  tags {
+    Name = "${var.project_name}-Spoke-1a-External-${count.index+1}"
+  }
+}

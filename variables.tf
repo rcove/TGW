@@ -60,6 +60,11 @@ variable "spoke_1_cidr_vpc" {
   description = "VPC hosting an internet facing website"
   default     = "10.110.0.0/16"
 }
+# VPC hosting second website
+variable "spoke_1a_cidr_vpc" {
+  description = "VPC hosting an internet facing website"
+  default     = "10.111.0.0/16"
+}
 
 # VPC hosting a test endpoint
 variable "spoke_2_cidr_vpc" {
@@ -70,6 +75,14 @@ variable "spoke_2_cidr_vpc" {
 variable "spoke_1_high_port" {
   description = "Choose the (random-unique) high port that will be used to access the web server in Spoke-1"
   default     = "9080"
+}
+variable "app_1_high_port" {
+  description = "Choose the (random-unique) high port that will be used to access the web server in Spoke-1"
+  default     = "9081"
+}
+variable "app_2_high_port" {
+  description = "Choose the (random-unique) high port that will be used to access the web server in Spoke-1"
+  default     = "9082"
 }
 
 
