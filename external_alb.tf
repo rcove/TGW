@@ -1,3 +1,4 @@
+/*
 # Deploy external ALB
 resource "aws_lb" "external_alb" {
   name               = "${var.project_name}-External-ALB"
@@ -55,7 +56,7 @@ resource "aws_lb_listener_rule" "external_alb_rules" {
     field  = "path-pattern"
     values = ["/app1/*"]
   }
-*/
+
   priority     = 90
 
   action {
@@ -68,7 +69,7 @@ resource "aws_lb_listener_rule" "external_alb_rules" {
     values = ["/app2/*"]
   }
 }
-/*
+
 resource "aws_lb_target_group_attachment" "external_alb_target_group_attachment_app2" {
   count            = "${aws_instance.spoke_1a_instance.count}"
   target_group_arn = "${aws_lb_target_group.internal_lb_target_group_app2.arn}"

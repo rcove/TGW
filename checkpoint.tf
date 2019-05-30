@@ -118,7 +118,7 @@ resource "aws_cloudformation_stack" "checkpoint_inbound_asg_cloudformation_stack
   disable_rollback    = true
   timeout_in_minutes  = 50
 }
-
+/*
 # Deploy external NLB
 resource "aws_lb" "external_nlb" {
   name               = "${var.project_name}-External-NLB"
@@ -151,3 +151,4 @@ resource "aws_lb_target_group" "external_lb_target_group" {
     name = "${var.project_name}-Ext-NLB-TG"    
   }     
 } 
+*/
