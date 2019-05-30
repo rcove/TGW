@@ -21,7 +21,7 @@ data "aws_route53_zone" "selectedapp" {
 
 resource "aws_route53_record" "app" {
   zone_id = "${data.aws_route53_zone.selectedapp.zone_id}"
-  name    = "${var.externaldnshost}.${var.r53zone}"
+  name    = "${var.externaldnshostapp}.${var.r53zone}"
   type    = "A"
   alias {
     name                   = "${aws_lb.external_alb.dns_name}"

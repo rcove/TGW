@@ -68,3 +68,11 @@ resource "aws_lb_listener_rule" "external_alb_rules" {
     values = ["/app2/*"]
   }
 }
+/*
+resource "aws_lb_target_group_attachment" "external_alb_target_group_attachment_app2" {
+  count            = "${aws_instance.spoke_1a_instance.count}"
+  target_group_arn = "${aws_lb_target_group.internal_lb_target_group_app2.arn}"
+  target_id        = "${element(aws_instance.spoke_1a_instance.*.id, count.index)}"
+  port             = 9081
+}
+*/

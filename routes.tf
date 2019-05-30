@@ -52,7 +52,10 @@ resource "aws_route_table" "inbound_route_table" {
     cidr_block         = "${var.spoke_1_cidr_vpc}"
     transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
   }
-
+  route {
+    cidr_block         = "${var.spoke_1a_cidr_vpc}"
+    transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  }
   route {
     cidr_block         = "${var.spoke_2_cidr_vpc}"
     transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"

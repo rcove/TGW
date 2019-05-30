@@ -142,10 +142,14 @@ variable "vpn_community_name" {
   default     = "tgw-community"  
 }
 variable "externaldnshost" {
-  description = "The name of the website"
+  description = "The name of the first website"
   default     = "www"  
 }
+variable "externaldnshostapp" {
+  description = "The name of the second website"
+  default     = "app"  
+}
 variable "r53zone" {
-  description = "The name of the domiain used"
+  description = "The name of the domain used"
   default     = "mycloudguard.net"  
 }
