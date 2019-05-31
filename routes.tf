@@ -23,7 +23,20 @@ resource "aws_route_table" "Management_route_table" {
     cidr_block         = "${var.inbound_cidr_vpc}"
     transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
   }
- 
+   # Routes to Spokes
+  route {
+    cidr_block         = "${var.spoke_1_cidr_vpc}"
+    transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  }
+  route {
+    cidr_block         = "${var.spoke_1a_cidr_vpc}"
+    transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  }
+  route {
+    cidr_block         = "${var.spoke_2_cidr_vpc}"
+    transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  }
+  
   tags {
     Name = "${var.project_name}-Management-External-Route"
   }
