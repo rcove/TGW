@@ -14,13 +14,14 @@ One time preparation of the AWS account
     https://aws.amazon.com/marketplace/pp/B07LB3YN9P?qid=1558349960795&sr=0-5&ref_=srh_res_product_title
 
 3.	Create security credentials for the API login (for terraform)
-4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recomended to destroy the resources when not using them
+4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recomended to destroy the resources when not using them  
+
 ----------------------------------------------------------------
 
-One time preperation of the Terraform scripts
-1. Modify the variables.tf to suite your needs 
-2. Delete Route53.tf if not needed
-3. Run terraform init 
+One time preperation of the Terraform scripts  
+1. Modify the variables.tf to suite your needs   
+2. Delete Route53.tf if not needed  
+3. Run terraform init  
 
 ------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_AWS_Tr
 Autoscale Documentation (Inbound cluster)  
 https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk112575   
 
-Modules 
+Modules  
   checkpoint.tf   - Contains the CFT for the gateways and mangager\
   tgw.tf\
   instances.tf\
@@ -53,7 +54,7 @@ Modules
 
 -------------------------------------------------------------------
 
-To run the script 
+To run the script  
     terraform init  
     terraform apply  
 
