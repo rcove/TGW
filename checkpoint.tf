@@ -105,7 +105,7 @@ resource "aws_cloudformation_stack" "checkpoint_inbound_asg_cloudformation_stack
     ConfigurationTemplate                       = "${var.inbound_configuration_template_name}"
     Name                                        = "${var.project_name}-CheckPoint-Inbound-ASG"
     InstanceType                                = "${var.inbound_asg_server_size}"
-    TargetGroups                                = "${aws_lb_target_group.external_lb_target_group.arn} , ${aws_lb_target_group.external_lb2_target_group.arn}"
+    TargetGroups                                = "${aws_lb_target_group.external_lb_target_group.arn},${aws_lb_target_group.external_lb2_target_group.arn}"
     KeyName                                     = "${var.key_name}"
     PasswordHash                                = "${var.password_hash}"
     SICKey                                      = "${var.sic_key}"
