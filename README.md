@@ -1,3 +1,4 @@
+# AWS CloudGuard IaaS Transit Gateway Demonstration 
 
 Terraform scripts for transit gateway demonstration of CloudGuard in AWS 
 Builds the complete envionment with web and application servers northbound and southbound e-w hubs 
@@ -23,18 +24,18 @@ One time preperation of the Terraform scripts
 
 ------------------------------------------------------------------
 
-Solution Documentation 
+Solution Documentation   
 
-The terraform script deploys these 3 CloudFormation templates with all the glue to configure them 
-  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/management.json"
-  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/checkpoint-tgw-asg-master.yaml"
-  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/autoscale.json"
+The terraform script deploys these 3 CloudFormation templates with all the glue to configure them  
+  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/management.json"  
+  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/checkpoint-tgw-asg-master.yaml"  
+  template_url        = "https://s3.amazonaws.com/CloudFormationTemplate/autoscale.json"  
 
-TGW documentation (Outbound cluster)
+TGW documentation (Outbound cluster)  
 https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_AWS_Transit_Gateway/html_frameset.htm
 
-Autoscale Documentation (Inbound cluster)
-https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk112575 
+Autoscale Documentation (Inbound cluster)  
+https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk112575   
 
 Modules 
   checkpoint.tf   - Contains the CFT for the gateways and mangager\
@@ -48,18 +49,18 @@ Modules
   internal_lb.tf        - app1\
   internal_lb_app2.tf   - app2\
   variables.tf\
-  route53.tf        - Optional, delete if R53 is not used\
+  route53.tf        - Optional, delete if R53 is not used  
 
 -------------------------------------------------------------------
 
 To run the script 
-    terraform init
-    terraform apply 
+    terraform init  
+    terraform apply  
 
 You can Logon after about 30 mins to the manager via the windows based Check Point SmartDashboard
 
-To remove the envionment 
-1. set the autoscale group to 0 instances for the outbound autoscale group, wait a few minutes to allow the VPNs to be deleted then run; 
+To remove the envionment  
+1. set the autoscale group to 0 instances for the outbound autoscale group, wait a few minutes to allow the VPNs to be deleted then run;  
     terraform destroy 
 
 Note: To use an existing manager then some modifications will be needed to terraform scripts and you will need to setup the autoprov-cfg 
