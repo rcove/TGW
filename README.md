@@ -1,7 +1,7 @@
 # AWS CloudGuard IaaS Transit Gateway Demonstration 
 
 Terraform scripts for transit gateway demonstration of CloudGuard in AWS 
-Builds the complete envionment with web and application servers northbound and southbound e-w hubs 
+Builds the complete environment with web and application servers, northbound and southbound e-w hubs 
 
 ---------------------------------------------------------------
 One time preparation of the AWS account 
@@ -14,11 +14,11 @@ One time preparation of the AWS account
     https://aws.amazon.com/marketplace/pp/B07LB3YN9P?qid=1558349960795&sr=0-5&ref_=srh_res_product_title
 
 3.	Create security credentials for the API login (for terraform)
-4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recomended to destroy the resources when not using them  
+4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recommended to destroy the resources when not using them  
 
 ----------------------------------------------------------------
 
-One time preperation of the Terraform scripts  
+One time preparation of the Terraform scripts  
 1. Modify the variables.tf to suite your needs   
 2. Delete Route53.tf if not needed  
 3. Run terraform init  
@@ -39,7 +39,7 @@ Autoscale Documentation (Inbound cluster)
 https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk112575   
 
 Modules  
-  checkpoint.tf   - Contains the CFT for the gateways and mangager\
+  checkpoint.tf   - Contains the CFT for the gateways and manager\
   tgw.tf\
   instances.tf\
   subnets.tf\
@@ -60,7 +60,7 @@ To run the script
 
 You can Logon after about 30 mins to the manager via the windows based Check Point SmartDashboard
 
-To remove the envionment  
+To remove the environment  
 1. set the autoscale group to 0 instances for the outbound autoscale group, wait a few minutes to allow the VPNs to be deleted then run;  
     terraform destroy 
 
