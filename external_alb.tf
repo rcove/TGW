@@ -9,17 +9,6 @@ resource "aws_lb" "external_alb" {
   }
 }
 
-resource "aws_lb_listener" "external_alb_listener" {
-  load_balancer_arn = "${aws_lb.external_alb.arn}"
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    target_group_arn = "${aws_lb_target_group.external_lb_tg_app1.arn}"
-    type             = "forward"
-  }
-}
-
 resource "aws_lb_target_group" "external_lb_tg_app1" {
   name = "${var.project_name}-Ext-ALB-TG-app1"
   port     = 80
@@ -27,6 +16,11 @@ resource "aws_lb_target_group" "external_lb_tg_app1" {
   vpc_id   = "${aws_vpc.inbound_vpc.id}"
   tags {
     name = "${var.project_name}-Ext-ALB-TG-app1"
+  }
+    # Alter the destination of the health check to be the login page.
+  health_check {
+    path = "/login"
+    port = 80
   }
 }
 
@@ -38,6 +32,22 @@ resource "aws_lb_target_group" "external_lb_tg_app2" {
   tags {
     name = "${var.project_name}-Ext-ALB-TG-app2"
   }
+  # Alter the destination of the health check to be the login page.
+  health_check {
+    path = "/login"
+    port = 80
+  }
+}
+
+resource "aws_lb_listener" "external_alb_listener" {
+  load_balancer_arn = "${aws_lb.external_alb.arn}"
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.external_lb_tg_app1.arn}"
+    type             = "forward"
+  }
 }
 
 resource "aws_lb_listener_rule" "external_alb_rules" {
@@ -48,7 +58,7 @@ resource "aws_lb_listener_rule" "external_alb_rules" {
     type             = "forward"
     target_group_arn = "${aws_lb_target_group.external_lb_tg_app1.arn}"
   }
-
+/*
   condition {
     field  = "path-pattern"
     values = ["/app1/*"]
@@ -60,7 +70,7 @@ resource "aws_lb_listener_rule" "external_alb_rules" {
     type             = "forward"
     target_group_arn = "${aws_lb_target_group.external_lb_tg_app2.arn}"
   }
-
+*/
   condition {
     field  = "path-pattern"
     values = ["/app2/*"]
