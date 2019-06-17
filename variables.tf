@@ -102,7 +102,7 @@ variable "sic_key" {
   default     = "abcdefgh"
 }
 
-variable "version" {
+variable "cpversion" {
   description = "Check Point version"
   default     = "R80.20"
 }
