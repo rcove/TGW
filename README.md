@@ -46,7 +46,7 @@ Modules
   vpc.tf\
   routes.tf\
   external_nlb.tf\
-  external_alb.tf - Not used due to issues with ALB\
+  external_alb.tf\
   internal_lb.tf        - app1\
   internal_lb_app2.tf   - app2\
   variables.tf\
