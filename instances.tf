@@ -53,9 +53,7 @@ resource "aws_instance" "spoke_1_instance" {
               sudo echo "This is a web server in ${element(data.aws_availability_zones.azs.names, count.index)}!" >> index.html
               sudo echo "" >> index.html
               sudo mkdir app1
-              sudo mkdir app2
-              sudo echo "app1" >> app1/index.html
-              sudo echo "app2" >> app2/index.html
+              sudo echo "Web server directed by /app1" >> app1/index.html
               sudo nohup busybox httpd -f -p 80 &
               sudo sleep 5
               EOF
@@ -90,6 +88,8 @@ resource "aws_instance" "spoke_1a_instance" {
               sudo echo "" >> index.html
               sudo echo "This is a web server in ${element(data.aws_availability_zones.azs.names, count.index)}!" >> index.html
               sudo echo "" >> index.html
+              sudo mkdir app2
+              sudo echo "Web server directed by /app2" >> app2/index.html
               sudo nohup busybox httpd -f -p 80 &
               sudo sleep 5
               EOF
