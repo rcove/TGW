@@ -149,6 +149,10 @@ variable "externaldnshostapp" {
   description = "The name of the second website"
   default     = "app"  
 }
+variable "externaldnshostalb" {
+  description = "The name of the website defined by the alb"
+  default     = "alb"  
+}
 variable "r53zone" {
   description = "The name of the domain used"
   default     = "mycloudguard.net"  

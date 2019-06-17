@@ -105,7 +105,7 @@ resource "aws_cloudformation_stack" "checkpoint_inbound_asg_cloudformation_stack
     ConfigurationTemplate                       = "${var.inbound_configuration_template_name}"
     Name                                        = "${var.project_name}-CheckPoint-Inbound-ASG"
     InstanceType                                = "${var.inbound_asg_server_size}"
-    TargetGroups                                = "${aws_lb_target_group.external_lb_target_group.arn},${aws_lb_target_group.external_lb2_target_group.arn}"
+    TargetGroups                                = "${aws_lb_target_group.external_lb_target_group.arn},${aws_lb_target_group.external_lb2_target_group.arn},${aws_lb_target_group.external_lb_tg_app1.arn},${aws_lb_target_group.external_lb_tg_app2.arn}"
     KeyName                                     = "${var.key_name}"
     PasswordHash                                = "${var.password_hash}"
     SICKey                                      = "${var.sic_key}"
@@ -118,37 +118,3 @@ resource "aws_cloudformation_stack" "checkpoint_inbound_asg_cloudformation_stack
   disable_rollback    = true
   timeout_in_minutes  = 50
 }
-/*
-# Deploy external NLB
-resource "aws_lb" "external_nlb" {
-  name               = "${var.project_name}-External-NLB"
-  internal           = false
-  load_balancer_type = "network"
-  subnets            = ["${aws_subnet.inbound_subnet.*.id}"]
-
-  tags = {
-    name               = "${var.project_name}-External-NLB"
-  }
-}  
-
-resource "aws_lb_listener" "external_lb_listener" {  
-  load_balancer_arn = "${aws_lb.external_nlb.arn}"  
-  port              = 80  
-  protocol          = "TCP"
-  
-  default_action {    
-    target_group_arn = "${aws_lb_target_group.external_lb_target_group.arn}"
-    type             = "forward"  
-  }
-} 
-
-resource "aws_lb_target_group" "external_lb_target_group" {   
-  name = "${var.project_name}-Ext-NLB-TG" 
-  port     = "${var.spoke_1_high_port}"  
-  protocol = "TCP"  
-  vpc_id   = "${aws_vpc.inbound_vpc.id}"   
-  tags {    
-    name = "${var.project_name}-Ext-NLB-TG"    
-  }     
-} 
-*/

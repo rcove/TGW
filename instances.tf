@@ -1,3 +1,4 @@
+# Create ubuntu instances for the websites (user ubuntu) 
 data "aws_ami" "ubuntu_ami" {
   most_recent = true
 
