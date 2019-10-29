@@ -46,7 +46,11 @@ Greetings! -----app2----- This is a web server in ap-southeast-2c!
 
 ubuntu@ip-10-120-176-115:~$ curl google.com  
 <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">  
-  
+
+Testing threat
+curl http://www.eicar.org/download/eicar_com.zip
+curl http://sc1.checkpoint.com/za/images/threatwiki/pages/TestAntiBotBlade.html
+
 Scale up both the gateway groups + see the lb groups get created in the policy    
  
 Application Control – setup policy + test so that you can see the urls in the logs   
