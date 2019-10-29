@@ -82,6 +82,22 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "spoke_1_transit_gateway_vpc_a
 }
 
 #####################################
+######### Spoke-1a VPC ###############
+#####################################
+# Attach Spoke-1a VPC to the TGW 
+resource "aws_ec2_transit_gateway_vpc_attachment" "spoke_1a_transit_gateway_vpc_attachment" {
+  subnet_ids         = ["${aws_subnet.spoke_1a_external_subnet.*.id}"]
+  transit_gateway_id = "${aws_ec2_transit_gateway.transit_gateway.id}"
+  vpc_id             = "${aws_vpc.spoke_1a_vpc.id}"
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
+
+  tags {
+    Name = "${var.project_name}-Spoke-1a-TGW-Attachment"
+  }
+}
+
+#####################################
 ######### Spoke-2 VPC ###############
 #####################################
 

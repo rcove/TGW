@@ -157,6 +157,58 @@ resource "aws_security_group" "spoke_1_security_group" {
 }
 
 ######################################
+########### Spoke-1a VPC  #############
+######################################
+
+# Create a test VPC and launch a second public facing web server
+resource "aws_vpc" "spoke_1a_vpc" {
+  cidr_block            = "${var.spoke_1a_cidr_vpc}"
+  enable_dns_hostnames  = "true"
+  
+  tags {
+    Name = "${var.project_name}-Spoke-1a-VPC"
+  }
+}
+
+# A security group to give access via the web
+resource "aws_security_group" "spoke_1a_security_group" {
+  vpc_id     = "${aws_vpc.spoke_1a_vpc.id}"
+  
+  # HTTP access from anywhere
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  
+  # SSH access from anywhere
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }  
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "ICMP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }   
+  # outbound internet access
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }    
+
+  tags {
+    Name   = "${var.project_name}-Spoke-1a-SG"
+  }  
+}
+
+######################################
 ########### Spoke-2 VPC  #############
 ######################################
 
