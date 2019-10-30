@@ -1,11 +1,11 @@
 -----
-# POC Plan Outline TGW and Autoscale demo  
+# POC Test Plan Outline TGW and Autoscale demo  
 -----
 Note: the ip and urls are for example only, you will discover your own  
-
+This is the suggested test plan  
 
 Login to Manager gui xx.xx.xx.xx 
-Create DC object AWS  
+Create DC object with AWS using IAM  
 Create rule 3.1 add destination Spoke2SG to any    
 Install rules   
 SSH to outbound gateway TGW admin@13.239.47.109  
@@ -22,6 +22,7 @@ NLB2 http://CP-TGW-External-NLB2-f4133e3dc2973229.elb.ap-southeast-2.amazonaws.c
   
 SSH to application server   
 First create a private key on the jumpbox (one time only)  
+In this case the jumpbox is one of the outbound Cloudguard gateways 
 [Expert@gw-5e27da:0]# cat > .ssh/myidentity  
 -----BEGIN RSA PRIVATE KEY-----  
 7YG4yHjNupzAoZ0YSTzGhsgPhPtpmnUIvbSGNf1C……  
@@ -36,10 +37,10 @@ Show rule 3.1 logging the packets
 Note: NLB cannot have a security group 
 
 This test shows E-W traffic inspection   
-ubuntu@ip-10-120-176-115:~$ curl CP-TGW-Internal-NLB-4e1960bacd7f7606.elb.ap-southeast-2.amazonaws.com
+ubuntu@ip-10-120-176-115:~$ curl CP-TGW-Internal-NLB-xxxxxx.elb.ap-southeast-2.amazonaws.com
 Greetings! -----App1----- This is a web server in ap-southeast-2c!
 
-ubuntu@ip-10-120-176-115:~$ curl CP-TGW-Internal-NLB-app2-e07fc6e2a95516c1.elb.ap-southeast-2.amazonaws.com
+ubuntu@ip-10-120-176-115:~$ curl CP-TGW-Internal-NLB-app2-xxxxxx.elb.ap-southeast-2.amazonaws.com
 Greetings! -----app2----- This is a web server in ap-southeast-2c!
 
 ubuntu@ip-10-120-176-115:~$ curl google.com  

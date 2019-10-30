@@ -18,7 +18,8 @@ One time preparation of the AWS account
 
 ----------------------------------------------------------------
 
-One time preparation of the Terraform scripts  
+One time preparation of the Terraform scripts\
+Works with terraform v0.11.13 not 0.12.x https://github.com/hashicorp/terraform/issues/21170\
 1. Modify the variables.tf to suite your needs   
 2. Delete Route53.tf if not needed  
 3. Run terraform init  
@@ -37,6 +38,16 @@ https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_AWS_Tr
 
 Autoscale Documentation (Inbound cluster)  
 https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk112575   
+
+CME (Cloud Management Extension) for CloudGuard 
+https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk157492
+CME Administration Guide 
+https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CME/Content/Topics/Overview.htm
+
+Currently the upgrade of the CME does not work on boot 
+clish -i -s -c "installer import cloud Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
+clish -i -s -c "installer download Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
+clish -i -s -c "installer install Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
 
 Modules  
   checkpoint.tf   - Contains the CFT for the gateways and manager\
@@ -64,4 +75,4 @@ To remove the environment
 1. set the autoscale group to 0 instances for the outbound autoscale group, wait a few minutes to allow the VPNs to be deleted then run;  
     terraform destroy 
 
-Note: To use an existing manager then some modifications will be needed to terraform scripts and you will need to setup the autoprov-cfg 
+Note: To use an existing manager then some modifications will be needed to terraform scripts and you will need to setup the cme and autoprov-cfg 
