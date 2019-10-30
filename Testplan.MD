@@ -3,10 +3,8 @@
 -----
 Note: the ip and urls are for example only, you will discover your own  
 
-SSH to management 52.64.xx.218   
-   cloudguard on  (one time) due script not working correctly   
 
-Login to Manager gui 52.64.xx.218  
+Login to Manager gui xx.xx.xx.xx 
 Create DC object AWS  
 Create rule 3.1 add destination Spoke2SG to any    
 Install rules   

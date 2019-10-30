@@ -17,14 +17,18 @@ resource "aws_cloudformation_stack" "checkpoint_Management_cloudformation_stack"
     Shell                   = "/bin/bash"
     Permissions             = "Create with read-write permissions"
     BootstrapScript         = <<BOOTSTRAP
-curl_cli https://s3.amazonaws.com/chkp-images/autoprovision-addon.tgz -k -o /tmp/autoprovision-addon.tgz;
-service autoprovision stop;
-tar zxfC /tmp/autoprovision-addon.tgz /;
-chkconfig --add autoprovision;
-service autoprovision start;
-cloudguard on;
+echo '
+clish -i -s -c "lock database override" ;
+clish -i -s -c "installer agent update not-interactive" ;
+clish -i -s -c "installer import cloud Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
+clish -i -s -c "installer download Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
+sleep 30 ; 
+clish -i -s -c "installer install Check_Point_R80.30_CME_T66_sk157492.tgz  not-interactive" ;
+sleep 60 ;
+api restart ;
+cloudguard on ;
 sed -i '/template_name/c\\${var.outbound_configuration_template_name}: autoscale-2-nic-management' /etc/cloud-version ;
-/etc/fw/scripts/autoprovision/config-community.sh ${var.vpn_community_name} ;
+/opt/CPcme/bin/config-community ${var.vpn_community_name} ;
 mgmt_cli -r true set access-rule layer Network rule-number 1 action "Accept" track "Log" ;
 mgmt_cli -r true add access-layer name "Inline" ;
 mgmt_cli -r true set access-rule layer Inline rule-number 1 action "Accept" track "Log" ;
@@ -35,8 +39,10 @@ autoprov-cfg -f set controller AWS -cn tgw-controller -slb ;
 autoprov-cfg -f set controller AWS -cn tgw-controller -sg -sv -com ${var.vpn_community_name} ;
 autoprov-cfg -f set template -tn ${var.outbound_configuration_template_name} -vpn -vd "" -con ${var.vpn_community_name} ;
 autoprov-cfg -f set template -tn ${var.outbound_configuration_template_name} -ia -ips -appi -av -ab ;
-autoprov-cfg -f set template -tn ${var.outbound_configuration_template_name} ;
 autoprov-cfg -f add template -tn ${var.inbound_configuration_template_name} -otp ${var.sic_key} -ver ${var.cpversion} -po Standard -ia -ips -appi -av -ab ;
+' > /etc/cloud-setup.sh ;
+chmod +x /etc/cloud-setup.sh ;
+/etc/cloud-setup.sh > /var/log/cloud-setup.log ;
 BOOTSTRAP
 }
 

@@ -104,7 +104,7 @@ variable "sic_key" {
 
 variable "cpversion" {
   description = "Check Point version"
-  default     = "R80.20"
+  default     = "R80.30"
 }
 
 variable "management_server_size" {

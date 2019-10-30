@@ -6,11 +6,11 @@ Builds the complete environment with web and application servers, northbound and
 ---------------------------------------------------------------
 One time preparation of the AWS account 
 1.	Create or choose a ssh key-pair in the account for the DC you are using
-2.	Subscribe to the ELUAs for R80.20 BYOL gateway and management 
-    R80.20 management 
+2.	Subscribe to the ELUAs for R80.30 BYOL gateway and management 
+    R80.20 R80.30 management 
     https://aws.amazon.com/marketplace/pp/B07KSBV1MM?qid=1558349960795&sr=0-4&ref_=srh_res_product_title
 
-    R80.20 Gateway
+    R80.20 R80.30 Gateway
     https://aws.amazon.com/marketplace/pp/B07LB3YN9P?qid=1558349960795&sr=0-5&ref_=srh_res_product_title
 
 3.	Create security credentials for the API login (for terraform)
