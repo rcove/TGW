@@ -1,8 +1,8 @@
 -----
 # POC Test Plan Outline TGW and Autoscale demo  
 -----
-Note: the ip and urls are for example only, you will discover your own  
-This is the suggested test plan  
+Note: the ip and urls are for example only, you will discover your own in the AWS console
+This is a *suggested* test plan  
 
 Login to Manager gui xx.xx.xx.xx 
 Create DC object with AWS using IAM  
@@ -23,15 +23,15 @@ NLB2 http://CP-TGW-External-NLB2-f4133e3dc2973229.elb.ap-southeast-2.amazonaws.c
 SSH to application server   
 First create a private key on the jumpbox (one time only)  
 In this case the jumpbox is one of the outbound Cloudguard gateways 
-[Expert@gw-5e27da:0]# cat > .ssh/myidentity  
+[Expert@gw:0]# cat > .ssh/myidentity  
 -----BEGIN RSA PRIVATE KEY-----  
 7YG4yHjNupzAoZ0YSTzGhsgPhPtpmnUIvbSGNf1C……  
 …….-----END RSA PRIVATE KEY-----  
 ^d  
-[Expert@gw-5e27da:0]# chmod +600 .ssh/myidentity  
+[Expert@gw:0]# chmod +600 .ssh/myidentity  
 now ssh to application server (you can also ssh to web servers )
-[Expert@gw-5e27da:0]# ssh -i ~/.ssh/myidentity  ubuntu@ip-10-120-176-115.ap-southeast-2.compute.internal  
-  
+[Expert@gw:0]# ssh -i ~/.ssh/myidentity  ubuntu@10.120.176.xx  
+
 watch logs in GUI while accessing the load balancers     
 Show rule 3.1 logging the packets  
 Note: NLB cannot have a security group 
