@@ -15,7 +15,7 @@ provider "aws" {
       Shared credential files is a text file with the following format:
         [<PROFILE>]
         aws_access_key_id = <ACCESS_KEY_ID>
-        aws_secret_access_key = <SECRETE_ACCESS_KEY
+        aws_secret_access_key = <SECRET_ACCESS_KEY
   */
   profile = "rich 777916771162"
   region  = "${var.region}"
@@ -30,7 +30,7 @@ data "aws_availability_zones" "azs" {}
 # Private key
 variable "key_name" {
   description = "Must be the name of an existing EC2 KeyPair"
-  default = "azure_pub_key"
+  default = "rich-lab"
 }
 
 #########################################
@@ -93,7 +93,7 @@ variable "app_2_high_port" {
 # (Optional) You can instead SSH into the server and run (from clish): 'set user admin password', fowlloed by 'save config'
 variable "password_hash" {
   description = "Hashed password for the Check Point servers - this parameter is optional"
-  default     = "$1$8SfURQQf$dXRtRJQX8cFPg25NTqv9T0"
+  default     = "$1$VqtPZ8Gq$.5o9coseXNVPPpR02RUz3/"
 }
 
 # SIC key
