@@ -13,7 +13,9 @@ One time preparation of the AWS account
     R80.20 R80.30 Gateway
     https://aws.amazon.com/marketplace/pp/B07LB3YN9P?qid=1558349960795&sr=0-5&ref_=srh_res_product_title
 
-3.	Create security credentials for the API login (for terraform)
+3.	Create IAM access keys for the API login (for terraform) and save into credentials 
+    #  shared_credentials_file = "~/.aws/credentials"  (linux)
+    #  shared_credentials_file = "%USERPROFILE%\.aws\credentials"  (windows)
 4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recommended to destroy the resources when not using them  
 
 ----------------------------------------------------------------
