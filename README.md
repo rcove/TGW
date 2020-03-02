@@ -16,7 +16,7 @@ One time preparation of the AWS account
 3.	Create IAM access keys for the API login (for terraform) and save into credentials 
     #  shared_credentials_file = "~/.aws/credentials"  (linux)
     #  shared_credentials_file = "%USERPROFILE%\.aws\credentials"  (windows)
-4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recommended to destroy the resources when not using them  
+4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recommended to destroy the resources when not using them. Go to https://console.aws.amazon.com/servicequotas to request a quota increase
 
 ----------------------------------------------------------------
 
