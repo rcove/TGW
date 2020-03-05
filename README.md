@@ -1,7 +1,8 @@
 # AWS CloudGuard IaaS Transit Gateway Demonstration 
 
-Terraform scripts for transit gateway demonstration of CloudGuard in AWS 
-Builds the complete environment with web and application servers, northbound and southbound e-w hubs 
+Terraform scripts for transit gateway demonstration of CloudGuard in AWS \
+Builds the complete environment with web and application servers, northbound and southbound e-w hubs\
+Based on R80.30, go to  https://github.com/rcove/aws-tgw-r8040 for the current version tested with R80.40
 
 ---------------------------------------------------------------
 One time preparation of the AWS account 
@@ -14,8 +15,8 @@ One time preparation of the AWS account
     https://aws.amazon.com/marketplace/pp/B07LB3YN9P?qid=1558349960795&sr=0-5&ref_=srh_res_product_title
 
 3.	Create IAM access keys for the API login (for terraform) and save into credentials 
-    #  shared_credentials_file = "~/.aws/credentials"  (linux)
-    #  shared_credentials_file = "%USERPROFILE%\.aws\credentials"  (windows)
+     shared_credentials_file = "~/.aws/credentials"  (linux)\
+     shared_credentials_file = "%USERPROFILE%\.aws\credentials"  (windows)\
 4.  Ensure you have enough resources in the account, this script creates 6 VPC, 1 transit gateway and 12 instances, the cost for this will be a few dollars per hour, so it is recommended to destroy the resources when not using them. Go to https://console.aws.amazon.com/servicequotas to request a quota increase
 
 ----------------------------------------------------------------
@@ -78,3 +79,5 @@ To remove the environment
     terraform destroy 
 
 Note: To use an existing manager then some modifications will be needed to terraform scripts and you will need to setup the cme and autoprov-cfg 
+
+Please note that these scripts are for labs and are not production validated, you should make sure you validate them if you plan on using them in anger. 
